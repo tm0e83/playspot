@@ -3,6 +3,7 @@ import { i18n } from '/i18n/i18n.js';
 import './teaser-boilerplate/teaser-boilerplate.js';
 import './teaser-limbo/teaser-limbo.js';
 import './teaser-mines/teaser-mines.js';
+import { html } from '/core/utils/html-utils.js';
 
 export default class PageDashboard extends Component {
   cssFilePath = 'components/pages/dashboard/page-dashboard.css';
