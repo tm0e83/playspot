@@ -2,10 +2,10 @@ import Component from '/core/component.js';
 import { i18n } from '/i18n/i18n.js';
 import store from '/core/store.js';
 import router from '/core/router.js';
+import { html } from '/core/utils/html-utils.js';
 
 // @ts-ignore
 import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/11.7.1/firebase-auth.js";
-// import { expireCookie } from '/core/functions.js';
 
 export default class LayoutSidebar extends Component {
   /** @type {boolean} */
@@ -86,7 +86,6 @@ export default class LayoutSidebar extends Component {
     event.preventDefault();
     const auth = getAuth();
     signOut(auth);
-    // expireCookie('idToken');
   }
 
   /**
@@ -103,10 +102,8 @@ export default class LayoutSidebar extends Component {
   async onResize() {
     if (this.resizeInProgress) return;
     this.resizeInProgress = true;
-
     await this.wait();
     this.render();
-
     this.resizeInProgress = false;
   }
 
@@ -166,15 +163,12 @@ export default class LayoutSidebar extends Component {
     this.classList.add('closed');
   }
 
-  /**
-   * @returns {string}
-   */
   get template() {
     /** @type {any} */
     const routeConfig = router?.route?.config;
     const routePath = routeConfig?.path;
 
-    return /*html*/ `
+    return html`
       <div class="menu-head">
         <a class="button-toggle-menu">
           <i class="fa-solid fa-${this.isOpen ? 'times' : 'bars'}"></i>
@@ -211,7 +205,7 @@ export default class LayoutSidebar extends Component {
         </div>
         <div class="inner">
           <ul class="nav flex-column">
-            ${store.state.user.role === 'admin' ? /*html*/ `
+            ${store.state.user.role === 'admin' ? html`
               <li class="nav-item">
                 <a class="nav-link ${routePath === 'styleguide' ? 'active' : ''}" href="/styleguide" data-link>
                   <i class="fa-solid fa-code"></i>

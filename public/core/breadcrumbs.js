@@ -1,5 +1,7 @@
+import { i18n } from '/i18n/i18n.js';
 import Component from '/core/component.js';
 import router from '/core/router.js';
+import { html } from '/core/utils/html-utils.js';
 
 export default class BreadcrumbsComponent extends Component {
   constructor() {
@@ -25,13 +27,13 @@ export default class BreadcrumbsComponent extends Component {
     this.innerHTML = '';
     const breadcrumbItems = this.breadcrumbItems;
     if (breadcrumbItems.length < 2) return;
-    this.innerHTML = this.template;
+    this.appendChild(this.template);
     const list = this.querySelector('ol')
     breadcrumbItems.map(item => list.appendChild((new BreadcrumbItem(item)).element));
   }
 
   get template() {
-    return /*html*/ `
+    return html`
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb"></ol>
       </nav>
@@ -51,14 +53,14 @@ class BreadcrumbItem {
   render() {
     this.element = document.createElement('li');
     this.element.classList.add('breadcrumb-item');
-    this.element.innerHTML = this.template;
+    this.element.appendChild(this.template);
   }
 
   get template() {
     if (this.data.path === router.route.config.path) {
-      return i18next.t(this.data.title);
+      return i18n.t(this.data.title);
     }
 
-    return /*html*/ `<a href="/${this.data.fullpath}">${i18next.t(this.data.title)}</a>`;
+    return html`<a href="/${this.data.fullpath}">${i18n.t(this.data.title)}</a>`;
   }
 }

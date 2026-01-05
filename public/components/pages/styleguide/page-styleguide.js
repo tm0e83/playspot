@@ -1,4 +1,5 @@
 import Component from '/core/component.js';
+import { html } from '/core/utils/html-utils.js';
 
 export default class PageBoilerplate extends Component {
   cssFilePath = '/components/pages/boilerplate/page-boilerplate.css';
@@ -18,7 +19,7 @@ export default class PageBoilerplate extends Component {
   }
 
   get template() {
-    return /*html*/ `
+    return html`
       <h1 class="font-thin">Boilerplate</h1>
 
       <section>

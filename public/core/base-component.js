@@ -120,13 +120,14 @@ export default class BaseComponent extends HTMLElement {
    * Render the component's content. Subclasses may override this method.
    */
   render() {
-    this.innerHTML = this.template;
+    this.innerHTML = '';
+    this.appendChild(this.template);
     this.#animationElements = Array.from(this.querySelectorAll('animate, animateTransform'));
   }
 
   /**
    * The HTML template of this component. Subclasses must override this method.
-   * @returns {string}
+   * @returns {DocumentFragment}
    */
   get template() {
     throw new Error('This must be implemented by subclasses of Component!');

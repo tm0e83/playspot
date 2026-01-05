@@ -4,6 +4,7 @@ import Component from '/core/component.js';
 import '/core/icons/icon-key.js';
 import '/core/icons/icon-circle-check.js';
 import '/core/icons/icon-playspot.js';
+import { html } from '/core/utils/html-utils.js';
 
 // @ts-ignore
 import { getAuth, sendPasswordResetEmail } from 'https://www.gstatic.com/firebasejs/11.7.1/firebase-auth.js';
@@ -11,7 +12,11 @@ import LoadingBar from '/core/loading-bar.js';
 
 export default class PageResetPassword extends Component {
   cssFilePath = 'components/pages/reset-password/page-reset-password.css';
+
+  /** @type {string} */
   errorCode = '';
+
+  /** @type {boolean} */
   sent = false;
 
   constructor() {
@@ -67,7 +72,7 @@ export default class PageResetPassword extends Component {
         errorText = i18n.t('unknownError', { errorCode: this.errorCode });
     }
 
-    return /*html*/ `
+    return html`
       <div class="alert alert-danger d-flex align-items-center gap-4" role="alert">
         <i class="fa-solid fa-triangle-exclamation"></i>
         <div>${errorText}</div>
@@ -76,7 +81,7 @@ export default class PageResetPassword extends Component {
   }
 
   get template() {
-    return /*html*/ `
+    return html`
       <div class="max-w-sm">
         <icon-playspot></icon-playspot>
         <div class="card p-4">
@@ -87,9 +92,9 @@ export default class PageResetPassword extends Component {
             </h1>
           </div>
           <div class="card-body">
-            ${this.sent ? `
+            ${this.sent ? html`
               <p>${i18n.t('resetPasswordSent')}</p>
-            ` : `
+            ` : html`
               ${this.errorCode ? this.errorTemplate : ''}
               <form>
                 <input

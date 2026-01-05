@@ -1,11 +1,20 @@
 import Component from '/core/component.js';
 import { i18n } from '/i18n/i18n.js';
+import { html } from '/core/utils/html-utils.js';
 
 export default class PagePrivacy extends Component {
   cssFilePath = 'components/pages/privacy/page-privacy.css';
 
+  get email() {
+    return atob('dG0wZTgzQGdtYWlsLmNvbQ==');
+  }
+
+  get phone() {
+    return atob('KzQ5IDE3NiA5NyA4ODIgOTk5');
+  }
+
   get template() {
-    return /*html*/ `
+    return html`
       <div class="privacy-policy">
         <h1>${i18n.t('privacy.title', 'Datenschutzerklärung')}</h1>
 
@@ -18,10 +27,10 @@ export default class PagePrivacy extends Component {
           <p>
             Verantwortlicher im Sinne der Datenschutz-Grundverordnung (DSGVO) ist:<br>
             <strong>PlaySpot</strong><br>
-            [Ihre Adresse]<br>
-            [PLZ Ort]<br>
-            E-Mail: [Ihre E-Mail]<br>
-            Telefon: [Ihre Telefonnummer]
+            Neugasse 21<br>
+            68649 Groß-Rohrheim<br>
+            E-Mail: ${this.email}<br>
+            Telefon: ${this.phone}
           </p>
         </section>
 
@@ -185,8 +194,8 @@ export default class PagePrivacy extends Component {
           <h2>12. Kontakt</h2>
           <p>
             Fragen zu dieser Datenschutzerklärung richten Sie bitte an:<br>
-            <strong>E-Mail:</strong> [Ihre Datenschutz-E-Mail]<br>
-            <strong>Telefon:</strong> [Ihre Telefonnummer]
+            <strong>E-Mail:</strong> ${this.email}<br>
+            <strong>Telefon:</strong> ${this.phone}
           </p>
         </section>
 
@@ -198,9 +207,13 @@ export default class PagePrivacy extends Component {
             Aufsichtsbehörde ist:
           </p>
           <p>
-            [Name der zuständigen Datenschutzbehörde]<br>
-            [Adresse]<br>
-            [Website]
+            Hessischer Beauftragter für Datenschutz und Informationsfreiheit<br>
+            Gustav-Stresemann-Ring 1<br>
+            65189 Wiesbaden<br>
+            Deutschland<br>
+            Telefon: +49 611 1408-0<br>
+            E-Mail: poststelle@datenschutz.hessen.de<br>
+            Website: https://www.datenschutz.hessen.de<br>
           </p>
         </section>
       </div>

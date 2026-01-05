@@ -1,4 +1,5 @@
 import Component from '/core/component.js';
+import { html } from '/core/utils/html-utils.js';
 
 export default class TileItem extends Component {
   cssFilePath = '/components/pages/games/mines/tile-item.css';
@@ -47,9 +48,9 @@ export default class TileItem extends Component {
   }
 
   get template() {
-    return /*html*/ this.hasType ? `
+    return this.hasType ? html`
       <i class="fa-solid ${this.isMine ? 'fa-bomb' : 'fa-gem'}"></i>
-    ` : '';
+    ` : html``;
   }
 }
 

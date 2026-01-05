@@ -4,7 +4,3 @@ import '/components/casino-component.js';
 import { firebaseConfig } from './firebase/config.js';
 
 initializeApp(firebaseConfig);
-
-// window.addEventListener('error', (error) => {
-//   console.log('ERROR', error);
-// });

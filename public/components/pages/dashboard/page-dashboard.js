@@ -8,7 +8,7 @@ export default class PageDashboard extends Component {
   cssFilePath = 'components/pages/dashboard/page-dashboard.css';
 
   get template() {
-    return /*html*/ `
+    return html`
       <!--<h1>${i18n.t('dashboard')}</h1>-->
       <div class="d-flex gap-4 teaser-container">
         <div class="mb-4 dashboard-teaser">

@@ -1,9 +1,25 @@
 import Component from '/core/component.js';
 import DatabaseAPI from '/firebase/database-api.js';
 import { i18n } from '/i18n/i18n.js';
+import { html } from '/core/utils/html-utils.js';
+
+/** @typedef {object} LeaderboardEntry
+ * @property {string} uid
+ * @property {string} username
+ * @property {number} score
+ */
 
 export default class PageLeaderboard extends Component {
   cssFilePath = 'components/pages/leaderboard/page-leaderboard.css';
+
+  /** @type {Array<LeaderboardEntry>} */
+  globalEntries = [];
+
+  /** @type {Array<LeaderboardEntry>} */
+  limboEntries = [];
+
+  /** @type {Array<LeaderboardEntry>} */
+  minesEntries = [];
 
   async connectedCallback() {
     /** @type {Array<{uid: string, username: string, score: number}>} */
@@ -30,7 +46,7 @@ export default class PageLeaderboard extends Component {
   }
 
   get template() {
-    return /*html*/ `
+    return html`
       <h1>${i18n.t('Leaderboard')}</h1>
 
       <div class="leaderboards">

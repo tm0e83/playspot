@@ -214,7 +214,6 @@ ol, ul {
   border: 0;
   border-radius: var(--border-radius);
   transition: 200ms box-shadow ease-in-out;
-  /* transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out; */
 
   &.primary {
     background: var(--color-03);
@@ -231,10 +230,6 @@ ol, ul {
     filter: grayscale(0.5);
     cursor: default;
   }
-
-  /* &:not(:disabled):hover {
-    box-shadow: 0 0 15px 3px rgba(255, 255, 255, 0.25);
-  } */
 }
 
 .pagination {

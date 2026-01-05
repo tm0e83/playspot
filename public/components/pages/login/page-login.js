@@ -11,6 +11,7 @@ import { getAuth, signInWithEmailAndPassword, sendEmailVerification } from "http
 // @ts-ignore
 import { child, get, getDatabase, off, ref, set, update } from 'https://www.gstatic.com/firebasejs/11.7.1/firebase-database.js';
 import { setCookie } from '/core/functions.js';
+import { html } from '/core/utils/html-utils.js';
 
 /**
  * @typedef {Object} AuthUser
@@ -91,9 +92,6 @@ export default class PageLogin extends Component {
           return;
         }
 
-        // const idToken = await userCredential.user.getIdToken();
-        // setCookie('idToken', idToken, null, 1);
-
         try {
           const dbRef = ref(getDatabase());
           const snapshot = await get(child(dbRef, `users/${auth.currentUser.uid}`));
@@ -160,7 +158,7 @@ export default class PageLogin extends Component {
         errorText = i18n.t('anErrorOccurred', { errorCode: this.errorCode });
     }
 
-    return /*html*/ `
+    return html`
       <div class="alert alert-danger d-flex align-items-center gap-4" role="alert">
         <i class="fa-solid fa-triangle-exclamation"></i>
         <div>${errorText}</div>
@@ -169,7 +167,7 @@ export default class PageLogin extends Component {
   }
 
   get template() {
-    return /*html*/ `
+    return html`
       <div class="max-w-sm">
         <icon-playspot></icon-playspot>
         <div class="card p-4">

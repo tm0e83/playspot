@@ -1,9 +1,10 @@
 import Component from '/core/component.js';
 import { i18n } from '/i18n/i18n.js';
+import { html } from '/core/utils/html-utils.js';
 
 export default class TeaserMines extends Component {
   get template() {
-    return /*html*/ `
+    return html`
       <div class="card">
         <div class="card-body">
           <h2>${i18n.t('mines')}</h2>

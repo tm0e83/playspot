@@ -1,5 +1,6 @@
 import { i18n } from '/i18n/i18n.js';
 import Component from '/core/component.js';
+import { html } from '/core/utils/html-utils.js';
 import SelectDropdown from '/core/select-dropdown/select-dropdown.js';
 import store from '/core/store.js';
 import '/core/icons/flags/icon-flag-de.js';
@@ -11,21 +12,18 @@ export default class LanguageSelection extends Component {
 
   constructor() {
     super();
-
     this.onSelect = this.onSelect.bind(this);
   }
 
   disconnectedCallback() {
     this.removeEvents();
-    this.dropdown?.remove();
+    this.dropdown = null;
     super.disconnectedCallback();
   }
 
   render() {
     super.render();
-
     this.dropdown = /** @type {SelectDropdown} */ (this.querySelector('select-dropdown'));
-
     this.addEvents();
   }
 
@@ -47,7 +45,7 @@ export default class LanguageSelection extends Component {
   }
 
   get template() {
-    return /*html*/ `
+    return html`
       <select-dropdown class="language-selection" open-left>
         <a class="trigger d-flex gap-2 align-items-center">
           <i class="fa-solid fa-globe"></i>

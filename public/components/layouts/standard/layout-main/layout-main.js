@@ -1,6 +1,7 @@
 import Component from '/core/component.js';
-import '/core/breadcrumbs.js';
 import router from '/core/router.js';
+import { html } from '/core/utils/html-utils.js';
+import '/core/breadcrumbs.js';
 
 export default class LayoutMain extends Component {
   cssFilePath = '/components/layouts/standard/layout-main/layout-main.css';
@@ -8,7 +9,6 @@ export default class LayoutMain extends Component {
 
   constructor() {
     super();
-
     this.render = this.render.bind(this);
   }
 
@@ -37,7 +37,7 @@ export default class LayoutMain extends Component {
   }
 
   get template() {
-    return /*html*/ `
+    return html`
       <layout-breadcrumbs></layout-breadcrumbs>
     `;
   }

@@ -1,4 +1,5 @@
 import Component from '/core/component.js';
+import { html } from '/core/utils/html-utils.js';
 
 /**
  * Background animation component that creates a polygon network animation
@@ -32,14 +33,14 @@ export default class BackgroundAnimation extends Component {
   }
 
   startAnimation() {
-    const canvas = this.querySelector('canvas');
+    const canvas = /** @type {HTMLCanvasElement} */ (this.querySelector('canvas'));
 
     if (!canvas) {
       console.error('Canvas element not found in the page.');
       return;
     }
 
-    const ctx = canvas.getContext('2d');
+    const ctx = /** @type {CanvasRenderingContext2D} */ (canvas.getContext('2d'));
     let w = 0, h = 0;
 
     function resize() {
@@ -51,7 +52,7 @@ export default class BackgroundAnimation extends Component {
     resize();
 
     // Polygon network animation
-    const points = [];
+    const points = /** @type {Point[]} */ ([]);
     const maxDistance = 150;
     const pointCount = 80;
 
@@ -137,7 +138,7 @@ export default class BackgroundAnimation extends Component {
   }
 
   get template() {
-    return `
+    return html`
       <canvas id="bg"></canvas>
     `;
   }

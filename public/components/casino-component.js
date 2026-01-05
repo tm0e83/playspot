@@ -1,9 +1,10 @@
 import Component from '/core/component.js';
 import { hasVerifiedEmail, isLoggedIn } from '/core/functions.js';
 import { i18n, initializeI18nAsync } from '/i18n/i18n.js';
-import '/core/loading-bar.js';
 import store from '/core/store.js';
 import router from '/core/router.js';
+import { html } from '/core/utils/html-utils.js';
+import '/core/loading-bar.js';
 
 // @ts-ignore
 import { getAuth } from "https://www.gstatic.com/firebasejs/11.7.1/firebase-auth.js";
@@ -54,16 +55,12 @@ class CasinoComponent extends Component {
    * @returns
    */
   async onAuthStateChanged(user) {
-    if (!user) {
-      store.dispatch('SET_USER', null);
-    } else {
-      store.dispatch('SET_USER', {
-        uid: user.uid,
-        email: user.email,
-        name: user.displayName,
-        emailVerified: user.emailVerified,
-      });
-    }
+    store.dispatch('SET_USER', !user ? null : {
+      uid: user.uid,
+      email: user.email,
+      name: user.displayName,
+      emailVerified: user.emailVerified,
+    });
 
     if (!isLoggedIn()) {
       return router.navigate('/login');
@@ -144,12 +141,12 @@ class CasinoComponent extends Component {
      */
     const { default: Layout } = await import(`/components/layouts/${store.state.layout}/layout-${store.state.layout}.js`);
     this.layout = new Layout();
-    this.innerHTML = this.template;
+    this.appendChild(this.template);
     this.appendChild(this.layout);
   }
 
   get template() {
-    return '';
+    return html``;
   }
 }
 

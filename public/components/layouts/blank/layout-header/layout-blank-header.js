@@ -1,6 +1,6 @@
 import Component from '/core/component.js';
 import store from '/core/store.js';
-// import { formatCurrency } from '/core/functions.js';
+import { html } from '/core/utils/html-utils.js';
 import '/components/shared/language-selection/language-selection.js';
 
 export default class LayoutBlankHeader extends Component {
@@ -10,23 +10,12 @@ export default class LayoutBlankHeader extends Component {
 
   constructor() {
     super();
-
     this.render = this.render.bind(this);
-    // this.onResize = this.onResize.bind(this);
   }
 
   addEvents() {
     store.unsubscribe('UPDATE_BALANCE', 'layoutBlankHeader');
     store.subscribe('UPDATE_BALANCE', this.render.bind(this), { id: 'layoutBlankHeader' });
-
-    // window.removeEventListener('resize', this.onResize);
-    // window.addEventListener('resize', this.onResize.bind(this));
-
-    // this.toggleMenuButton.addEventListener('click', e => {
-    //   e.preventDefault();
-    //   this.dispatchEvent(new CustomEvent('toggleMenu'));
-    //   this.render();
-    // });
   }
 
   wait() {
@@ -36,22 +25,13 @@ export default class LayoutBlankHeader extends Component {
     });
   }
 
-  // async onResize() {
-  //   await this.wait();
-  //   this.render();
-  // }
-
   render() {
     super.render();
-    // this.toggleMenuButton = this.querySelector('.button-toggle-menu');
     this.addEvents();
   }
 
-  /**
-   * @returns {string}
-   */
   get template() {
-    return /*html*/ `
+    return html`
       <header>
         <div class="header-left"></div>
         <div class="header-right">

@@ -1,4 +1,5 @@
 import BaseComponent from './base-component.js';
+import { html } from '/core/utils/html-utils.js';
 
 /**
  * LoadingBar component to display a loading bar during asynchronous operations.
@@ -34,7 +35,7 @@ export default class LoadingBar extends BaseComponent {
   }
 
   get template() {
-    return /*html*/`
+    return html`
       <div class="line"></div>
       <div class="subline inc"></div>
       <div class="subline dec"></div>

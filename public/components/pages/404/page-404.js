@@ -1,4 +1,5 @@
 import Component from '/core/component.js';
+import { html } from '/core/utils/html-utils.js';
 
 export default class Page404 extends Component {
   constructor() {
@@ -6,7 +7,7 @@ export default class Page404 extends Component {
   }
 
   get template() {
-    return /*html*/ `
+    return html`
       <h1>Seite nicht gefunden 8-(</h1>
     `;
   }

@@ -3,6 +3,7 @@ import Component from '/core/component.js';
 import store from '/core/store.js';
 import LoadingBar from '/core/loading-bar.js';
 import DatabaseAPI from '/firebase/database-api.js';
+import { html } from '/core/utils/html-utils.js';
 
 /**
  * @typedef {(currentBalance: number|null|undefined) => number} TransactionHandler
@@ -10,6 +11,8 @@ import DatabaseAPI from '/firebase/database-api.js';
 
 export default class PageLimboGame extends Component {
   cssFilePath = '/components/pages/games/limbo/page-limbo-game.css';
+
+  /** @type {number} */
   #currentValue = 0;
 
   constructor() {
@@ -202,7 +205,7 @@ export default class PageLimboGame extends Component {
   }
 
   get template() {
-    return /*html*/ `
+    return html`
       <h1>Limbo</h1>
       <div class="game-container">
         <div class="history"></div>

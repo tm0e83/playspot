@@ -1,4 +1,15 @@
 /**
+ * @typedef {object} Options
+ * @property {string | null | Symbol} [id] - The identifier of the subscriber.
+ */
+
+/**
+ * @typedef {Object} Channel
+ * @property {function} fn - The callback function.
+ * @property {string | null | Symbol} [id] - The identifier of the subscriber.
+ */
+
+/**
  * @class
  * @description creates a event bus that manages action subscriptions
  * @method subscribe
@@ -6,7 +17,8 @@
  * @method publish
  * @example
   const eventbus = new EventBus();
-  eventbus.susbcribe('sayHello', _ => {
+
+  eventbus.subscribe('sayHello', _ => {
     console.log('Hello');
   });
 
@@ -14,16 +26,17 @@
 */
 export default class EventBus {
   constructor() {
-    this.channels = [];
+    /** @type {Object.<string, Channel[]>} */
+    this.channels = {};
   }
 
   /**
-   * susbcribe to an action
+   * subscribe to an action
    * @param {string} action the identifier of the action
    * @param {function} fn callback function
-   * @param {object} options
+   * @param {Options} options
    */
-  subscribe(action, fn, options = {}) {
+  subscribe(action, fn, options = { id: null }) {
     if (typeof action != 'string' || typeof fn != 'function') return false;
     if (!this.channels[action]) this.channels[action] = [];
     if (options.id) this.unsubscribe(action, options.id);
@@ -34,7 +47,13 @@ export default class EventBus {
     return this;
   }
 
-  unsubscribe(action, id) {
+  /**
+   *
+   * @param {string} action
+   * @param {string | null | Symbol} [id=null]
+   * @returns
+   */
+  unsubscribe(action, id = null) {
     if (typeof action != 'string' || !id) return false;
     if (!this.channels[action]) return this;
     this.channels[action] = this.channels[action].filter(subscriber => subscriber.id !== id);

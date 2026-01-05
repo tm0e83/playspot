@@ -1,55 +1,78 @@
+import { html } from "./utils/html-utils";
+
+/**
+ * @typedef {'beforebegin' | 'afterbegin' | 'beforeend' | 'afterend'} InsertPosition
+ *
+ *
+/**
+ * @typedef {object} PaginationArgs
+ * @property {number} totalEntriesAmount
+ * @property {number} entriesPerPage
+ * @property {number=} currentPageIndex
+ * @property {HTMLElement} container
+ * @property {HTMLElement} targetContainer
+ * @property {boolean} autoHide
+ * @property {boolean} minimize
+ * @property {string} alignment
+ * @property {HTMLElement=} noResultsMessage
+ * @property {InsertPosition=} insertPosition
+*/
+
 /**
  * @description Class for creating/handling paginations
- * @param {number} totalEntriesAmount the amount of entries across all pages
- * @param {number} entriesPerPage the amount of entries per page
- * @param {node} container outer element of the pagination (consider using 'targetContainer' instead)
- * @param {node} targetContainer the element where the pagination is supposed to be inserted (alternatively use this instead of 'container')
- * @param {boolean} autoHide automatically hide the pagination if 0 entries or less than 2 pages
- * @param {boolean} minimize shrinks down the pagination. Ideal for small spaced areas.
- * @param {stirng} alignment left|center|right
- * @param {node=} noResultsMessage
  * @example
- * // .no-results-message {
- * //   display:none;
- * // }
+ * .no-results-message {
+ *   display:none;
+ * }
  *
- * // <div class="example-container">
- * //   <div class="no-results-message"><?php echo $this->translate('Keine Resultate'); ?></div>
- * //   <div class="pagination pagination-right">
- * //     <div class="page-nav">
- * //       <div class="prev-page"><?php echo $this->translate('vorherige'); ?></div>
- * //       <div class="page-buttons"></div>
- * //       <div class="next-page"><?php echo $this->translate('nächste'); ?></div>
- * //     </div>
- * //   </div>
- * // </div>
+ * <div class="example-container">
+ *   <div class="no-results-message"><?php echo $this->translate('Keine Resultate'); ?></div>
+ *   <div class="pagination pagination-right">
+ *     <div class="page-nav">
+ *       <div class="prev-page"><?php echo $this->translate('vorherige'); ?></div>
+ *       <div class="page-buttons"></div>
+ *       <div class="next-page"><?php echo $this->translate('nächste'); ?></div>
+ *     </div>
+ *   </div>
+ * </div>
  *
- * // new Pagination({
- * //   container: document.querySelector('.pagination'),
- * //   noResultsMessage: document.querySelector('.no-results-message'),
- * //   totalEntriesAmount: 100,
- * //   entriesPerPage: 10
- * // });
+ * new Pagination({
+ *   container: document.querySelector('.pagination'),
+ *   noResultsMessage: document.querySelector('.no-results-message'),
+ *   totalEntriesAmount: 100,
+ *   entriesPerPage: 10
+ * });
  *
  * @example
- * // <div class="example-container"></div>
+ * <div class="example-container"></div>
  *
- * // new Pagination({
- * //   targetContainer: document.querySelector('.example-container'),
- * //   totalEntriesAmount: 100,
- * //   entriesPerPage: 10
- * // });
+ * new Pagination({
+ *   targetContainer: document.querySelector('.example-container'),
+ *   totalEntriesAmount: 100,
+ *   entriesPerPage: 10
+ * });
  */
 export default class Pagination extends EventTarget {
+  /** @type {number} */
+  totalEntriesAmount = 0;
+
+  /** @type {number} */
+  entriesPerPage = 0;
+
+  /** @type {number} */
+  currentPageIndex = 0;
+
+  /** @param {PaginationArgs} args */
   constructor(args) {
     super();
-    this.container = typeof jQuery !== 'undefined' && args.container instanceof jQuery ? args.container.get(0) : args.container;
+    this.container = args.container;
     this.targetContainer = args.targetContainer;
     if(!this.container && !this.targetContainer) return;
 
     this.totalEntriesAmount = args.totalEntriesAmount || 0;
     this.entriesPerPage = args.entriesPerPage || 0;
     this.currentPageIndex = args.currentPageIndex || 0;
+
     this.autoHide = typeof args.autoHide !== 'undefined' ? args.autoHide : true;
     this.minimize = typeof args.minimize !== 'undefined' ? args.minimize : false;
     this.alignment = args.alignment || 'right';
@@ -62,16 +85,18 @@ export default class Pagination extends EventTarget {
 
     this.isVisible = true;
 
+    this.onPageButtonClick = this.onPageButtonClick.bind(this);
+
     // if targetContainer is set, insert pagination in it
     if(this.targetContainer) {
       this.build();
     }
 
-    this.navigation = this.container.querySelector('.page-nav');
-    this.buttonPrev = this.container.querySelector('.prev-page');
-    this.buttonNext = this.container.querySelector('.next-page');
-    this.pageButtonContainer = this.container.querySelector('.page-buttons');
-    this.noResultsMessage = args.noResultsMessage || this.container.querySelector('.no-results-error');
+    this.navigation = /** @type {HTMLElement} */ (this.container.querySelector('.page-nav'));
+    this.buttonPrev = /** @type {HTMLElement} */ (this.container.querySelector('.prev-page'));
+    this.buttonNext = /** @type {HTMLElement} */ (this.container.querySelector('.next-page'));
+    this.pageButtonContainer = /** @type {HTMLElement} */ (this.container.querySelector('.page-buttons'));
+    this.noResultsMessage = /** @type {HTMLElement} */ (args.noResultsMessage || this.container.querySelector('.no-results-error'));
 
     this.addEvents();
     this.update(this.totalEntriesAmount, this.entriesPerPage);
@@ -83,11 +108,11 @@ export default class Pagination extends EventTarget {
     this.container.classList.add('pagination');
     this.container.classList.add(`pagination-${this.alignment}`);
     this.container.innerHTML = this.template;
-    this.targetContainer.insertAdjacentElement(this.insertPosition, this.container);
+    this.targetContainer.insertAdjacentElement(/** @type {InsertPosition} */ (this.insertPosition), this.container);
   }
 
   get template() {
-    return `
+    return /*html*/`
       <div class="page-nav">
         <div class="prev-page"><i class="fas fa-angle-left"></i></div>
         <div class="page-buttons"></div>
@@ -97,7 +122,7 @@ export default class Pagination extends EventTarget {
   }
 
   addEvents() {
-    this.buttonPrev.addEventListener('click', _ => {
+    this.buttonPrev?.addEventListener('click', _ => {
       const nextPageIndex = this.currentPageIndex - 1;
       if(nextPageIndex < 0 || nextPageIndex == this.currentPageIndex) return;
       this.currentPageIndex = nextPageIndex;
@@ -105,7 +130,7 @@ export default class Pagination extends EventTarget {
       this.dispatchEvent(new CustomEvent('pageChange', { detail: this.currentPageIndex }));
     });
 
-    this.buttonNext.addEventListener('click', _ => {
+    this.buttonNext?.addEventListener('click', _ => {
       const nextPageIndex = this.currentPageIndex + 1;
       if(nextPageIndex > this.numberOfPages - 1 || nextPageIndex == this.currentPageIndex) return;
       this.currentPageIndex = nextPageIndex;
@@ -115,19 +140,31 @@ export default class Pagination extends EventTarget {
   }
 
   addPageButtonEvents() {
-    [...this.pageButtons].map(button => {
-      button.addEventListener('click', e => {
-        e.stopPropagation();
-        const nextPageIndex = parseInt(button.innerHTML) - 1;
-        if(nextPageIndex == this.currentPageIndex) return;
-        this.currentPageIndex = nextPageIndex;
-        this.render();
-        this.dispatchEvent(new CustomEvent('pageChange', { detail: this.currentPageIndex }));
-      });
+    this.pageButtons.forEach(/** @type {HTMLElement} */ (button) => {
+      button?.addEventListener('click', this.onPageButtonClick);
     });
   }
 
-  // must fire render method afterwards in order to apply
+  /**
+   * handles click on a page button
+   * @param {MouseEvent} event
+   * @returns
+   */
+  onPageButtonClick(event) {
+    const eventTarget = /** @type {HTMLElement} */ (event.target);
+    event.stopPropagation();
+    const nextPageIndex = parseInt(eventTarget.innerHTML) - 1;
+    if(nextPageIndex == this.currentPageIndex) return;
+    this.currentPageIndex = nextPageIndex;
+    this.render();
+    this.dispatchEvent(new CustomEvent('pageChange', { detail: this.currentPageIndex }));
+  }
+
+  /**
+   * must fire render method afterwards in order to apply
+   * @param {number} pageIndex
+   * @returns {Pagination}
+   */
   setPageIndex(pageIndex) {
     this.currentPageIndex = pageIndex !== undefined ? pageIndex : this.currentPageIndex;
     return this;
@@ -137,7 +174,7 @@ export default class Pagination extends EventTarget {
    * updates the pagination view
    * @param {number} totalEntriesAmount - the total number of (filtered) entries across all pages
    * @param {number} entriesPerPage - number of entries displayed per page
-   * @param {number} pageIndex - index of the page
+   * @param {number=} pageIndex - index of the page
    */
   update(totalEntriesAmount, entriesPerPage, pageIndex) {
     this.totalEntriesAmount = totalEntriesAmount || 0;
@@ -157,7 +194,7 @@ export default class Pagination extends EventTarget {
   }
 
   toggleShowHide() {
-    this.navigation.style.display = this.numberOfPages > 1 ? 'flex' : 'none';
+    if (this.navigation) this.navigation.style.display = this.numberOfPages > 1 ? 'flex' : 'none';
     if(!this.autoHide) return;
     this.container.style.display = this.numberOfPages > 1 ? 'flex' : 'none';
   }
@@ -165,12 +202,12 @@ export default class Pagination extends EventTarget {
   showPagination() {
     this.isVisible = true;
     if(this.noResultsMessage) this.noResultsMessage.style.display = 'none';
-    this.navigation.style.display = 'flex';
+    if (this.navigation) this.navigation.style.display = 'flex';
   }
 
   hidePagination() {
     this.isVisible = false;
-    this.navigation.style.display = 'none';
+    if (this.navigation) this.navigation.style.display = 'none';
     if(this.noResultsMessage) this.noResultsMessage.style.display = 'block';
   }
 
@@ -223,12 +260,21 @@ export default class Pagination extends EventTarget {
     return this.currentPageIndex;
   }
 
+  /**
+   * returns the template for a page button
+   * @param {number} index
+   * @param {boolean} active
+   * @returns {string}
+   */
   getPageButtonTemplate(index, active) {
     return `<div class="page-button${active ? ' active' : ''}">${index + 1}</div>`;
   }
 
+  /**
+   * @returns {NodeListOf<HTMLElement> | []} the page buttons
+   */
   get pageButtons() {
-    return this.pageButtonContainer.querySelectorAll('.' + this.pageButtonClass);
+    return this.pageButtonContainer?.querySelectorAll('.' + this.pageButtonClass) || [];
   }
 
   get numberOfPages() {

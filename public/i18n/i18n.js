@@ -9,9 +9,8 @@ export async function initializeI18nAsync() {
     lng: 'de',
     ns: ['app'],
     defaultNS: 'app',
-    // debug: true,
     resources: {
-      de: responseJson//{ translation: responseJson }
+      de: responseJson
     }
   });
 }

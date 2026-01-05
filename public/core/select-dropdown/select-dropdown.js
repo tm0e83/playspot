@@ -1,5 +1,5 @@
-import { i18n } from '/i18n/i18n.js';
 import Component from '/core/component.js';
+import { html, unsafeHTML } from '/core/utils/html-utils.js';
 
 export default class SelectDropdown extends Component {
   cssFilePath = '/core/select-dropdown/select-dropdown.css';
@@ -68,6 +68,8 @@ export default class SelectDropdown extends Component {
   }
 
   /**
+   * Handles item click events.
+   * Dispatches a 'select' event with the selected item's value.
    * @param {Event} event
    */
   onItemClick(event) {
@@ -81,6 +83,8 @@ export default class SelectDropdown extends Component {
   }
 
   /**
+   * Handles search input events.
+   * Filters the dropdown items based on the search query.
    * @param {Event} event
    */
   onSearch(event) {
@@ -106,13 +110,16 @@ export default class SelectDropdown extends Component {
   }
 
   /**
+   * Handles click events outside the dropdown.
    * @param {Event} event
    */
   onClickOutside(event) {
     if (this.isOpen) {
       const target = /** @type {HTMLInputElement} */ (event.target);
+
+      // cancel when clicking inside the dropdown
       if (this.contains(target) ||target.closest('.select-dropdown')) {
-        return; // Click is inside the dropdown
+        return;
       }
 
       this.close();
@@ -135,13 +142,17 @@ export default class SelectDropdown extends Component {
      this.removeAttribute('open');
   }
 
+  /**
+   * Indicates whether the dropdown is open.
+   * @returns {boolean}
+   */
   get isOpen() {
     return this.hasAttribute('open');
   }
 
   get template() {
-    return /*html*/ `
-      ${this.dropdownContent}
+    return html`
+      ${unsafeHTML`${this.dropdownContent}`}
     `;
   }
 }

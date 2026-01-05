@@ -4,6 +4,7 @@ import { roundTo2Decimals } from '/core/functions.js';
 import './tile-item.js';
 import DatabaseAPI from '/firebase/database-api.js';
 import LoadingBar from '/core/loading-bar.js';
+import { html } from '/core/utils/html-utils.js';
 
 /**
  * @typedef {Object} TileItemData
@@ -383,7 +384,7 @@ export default class PageMinesGame extends Component {
   }
 
   get template() {
-    const tpl = /*html*/ `
+    const tpl = html`
       <h1>Mines</h1>
       <div class="game-container">
         <div class="game-menu">

@@ -55,6 +55,7 @@ function reducer(state, action) {
               limbo: 0,
               mines: 0
             },
+            username: 'John Doe',
             winningsHistory: [],
           }
         };
@@ -85,10 +86,6 @@ function reducer(state, action) {
           language: action.payload
         }
       };
-      return {
-        ...state,
-        language: action.payload
-      };
 
     default:
       return state;
@@ -111,6 +108,7 @@ class Store extends EventBus {
         limbo: 0,
         mines: 0
       },
+      username: 'John Doe',
       winningsHistory: [],
     },
     layout: '',

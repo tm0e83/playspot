@@ -1,8 +1,8 @@
 import Component from '/core/component.js';
 import router from '/core/router.js';
+import { html } from '/core/utils/html-utils.js';
 import './layout-header/layout-blank-header.js';
 import '/core/background-animation.js';
-import store from '/core/store.js';
 
 export default class LayoutBlank extends Component {
   cssFilePath = '/components/layouts/blank/layout-blank.css';
@@ -45,7 +45,7 @@ export default class LayoutBlank extends Component {
   }
 
   get template() {
-    return /*html*/ `
+    return html`
       <background-animation></background-animation>
       <layout-blank-header></layout-blank-header>
     `;

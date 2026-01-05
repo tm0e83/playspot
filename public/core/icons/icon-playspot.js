@@ -1,13 +1,12 @@
 import BaseIcon from '/core/icons/base-icon.js';
+import { html } from '/core/utils/html-utils.js';
 
 /**
   * A component that renders the PlaySpot SVG icon.
  */
 export default class IconPlaySpot extends BaseIcon {
-  cssFilePath = 'core/icons/icon-playspot.css';
-
   get template() {
-    return /* html */`
+    return html`
       <svg viewBox="0 0 95 40" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <linearGradient id="textGradient" x1="0%" y1="0%" x2="100%" y2="0%">

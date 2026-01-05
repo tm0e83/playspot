@@ -3,6 +3,7 @@ import router from '/core/router.js';
 import Component from '/core/component.js';
 import '/core/icons/icon-user-plus.js';
 import '/core/icons/icon-playspot.js';
+import { html } from '/core/utils/html-utils.js';
 
 // @ts-ignore
 import { getAuth, createUserWithEmailAndPassword, sendEmailVerification, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/11.7.1/firebase-auth.js';
@@ -12,8 +13,14 @@ import LoadingBar from '/core/loading-bar';
 
 export default class PageRegistration extends Component {
   cssFilePath = 'components/pages/registration/page-registration.css';
+
+  /** @type {string} */
   #errorCode = '';
+
+  /** @type {string} */
   #email = '';
+
+  /** @type {string} */
   #username = '';
 
   constructor() {
@@ -128,7 +135,7 @@ export default class PageRegistration extends Component {
         errorText = i18n.t('unknownError', { errorCode: this.#errorCode });
     }
 
-    return /*html*/ `
+    return html`
       <div class="alert alert-danger d-flex align-items-center gap-4" role="alert">
         <i class="fa-solid fa-triangle-exclamation"></i>
         <div>${errorText}</div>
@@ -137,7 +144,7 @@ export default class PageRegistration extends Component {
   }
 
   get template() {
-    return /*html*/ `
+    return html`
       <div class="max-w-sm">
         <icon-playspot></icon-playspot>
         <div class="card p-4">

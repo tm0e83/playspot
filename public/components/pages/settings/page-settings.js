@@ -3,6 +3,7 @@ import LoadingBar from '/core/loading-bar.js';
 import store from '/core/store.js';
 import DatabaseAPI from '/firebase/database-api.js';
 import { i18n } from '/i18n/i18n.js';
+import { html } from '/core/utils/html-utils.js';
 
 /**
  * @typedef {(currentBalance: number|null|undefined) => number} TransactionHandler
@@ -65,7 +66,7 @@ export default class PageSettings extends Component {
   }
 
   get template() {
-    return /*html*/ `
+    return html`
       <h1>${i18n.t('settings')}</h1>
       <div class="card">
         <div class="card-body max-w-sm">

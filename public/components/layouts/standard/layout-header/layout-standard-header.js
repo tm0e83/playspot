@@ -1,6 +1,6 @@
 import Component from '/core/component.js';
 import store from '/core/store.js';
-import { formatCurrency } from '/core/functions.js';
+import { html } from '/core/utils/html-utils.js';
 import '/components/shared/language-selection/language-selection.js';
 import '/core/icons/icon-playspot.js';
 
@@ -11,7 +11,6 @@ export default class LayoutStandardHeader extends Component {
 
   constructor() {
     super();
-
     this.render = this.render.bind(this);
   }
 
@@ -36,10 +35,10 @@ export default class LayoutStandardHeader extends Component {
   }
 
   /**
-   * @returns {string}
+   * @returns {DocumentFragment}
    */
   get template() {
-    return /*html*/ `
+    return html`
       <header>
         <div class="header-left"><a href="/dashboard" data-link><icon-playspot></icon-playspot></a></div>
         <div class="header-center">
