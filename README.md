@@ -1,3 +1,3 @@
 # PlaySpot
 
-[http://ewms.digitalsquares.de/](http://ewms.digitalsquares.de/)
+[https://casino-cddc0.web.app/](https://casino-cddc0.web.app/)

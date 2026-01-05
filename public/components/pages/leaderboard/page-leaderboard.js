@@ -57,7 +57,7 @@ export default class PageLeaderboard extends Component {
             </h2>
           </div>
           <div class="card-body">
-            ${this.globalEntries?.map(entry => `
+            ${this.globalEntries?.map(entry => html`
               <div class="leaderboard-entry">
                 <div><i class="fa-solid fa-trophy"></i></div>
                 <div class="username">${entry.username}</div>
@@ -74,7 +74,7 @@ export default class PageLeaderboard extends Component {
             </h2>
           </div>
           <div class="card-body">
-            ${this.limboEntries?.map(entry => `
+            ${this.limboEntries?.map(entry => html`
               <div class="leaderboard-entry">
                 <div><i class="fa-solid fa-trophy"></i></div>
                 <div class="username">${entry.username}</div>
@@ -91,7 +91,7 @@ export default class PageLeaderboard extends Component {
             </h2>
           </div>
           <div class="card-body">
-            ${this.minesEntries?.map(entry => `
+            ${this.minesEntries?.map(entry => html`
               <div class="leaderboard-entry">
                 <div><i class="fa-solid fa-trophy"></i></div>
                 <div class="username">${entry.username}</div>
