@@ -57,7 +57,7 @@ export default class PageLeaderboard extends Component {
             </h2>
           </div>
           <div class="card-body">
-            ${this.globalEntries?.map(entry => html`
+            ${this.globalEntries?.map(entry => `
               <div class="leaderboard-entry">
                 <div><i class="fa-solid fa-trophy"></i></div>
                 <div class="username">${entry.username}</div>

@@ -5,7 +5,7 @@ page-leaderboard {
     flex-direction: column;
     gap: 1rem;
 
-    @media (min-width: 768px) {
+    @media (min-width: 980px) {
       flex-direction: row;
     }
   }
