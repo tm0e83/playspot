@@ -155,7 +155,7 @@ export default class TeaserMines extends Component {
             </g>
           </svg>
 
-          <p>Ein Spielfeld voller Felder - einige bergen wertvolle Edelsteine, andere verbergen gefährliche Minen. Setze deinen Einsatz, wähle dein Risiko, und geh aufs Ganze!</p>
+          <p>${i18n.t('minesTeaser')}</p>
 
           <a class="btn primary" href="/games/mines" data-link>
             ${i18n.t('play')}

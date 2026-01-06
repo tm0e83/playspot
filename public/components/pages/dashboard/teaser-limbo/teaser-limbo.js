@@ -99,7 +99,7 @@ export default class TeaserLimbo extends Component {
             </g>
           </svg>
 
-          <p>Setze deinen Einsatz, spüre den Nervenkitzel und knacke den Zufallswert - je höher, desto besser!</p>
+          <p>${i18n.t('limboTeaser')}</p>
 
           <a class="btn primary" href="/games/limbo" data-link>
             ${i18n.t('play')}

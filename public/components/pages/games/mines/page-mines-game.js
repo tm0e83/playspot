@@ -5,6 +5,7 @@ import './tile-item.js';
 import DatabaseAPI from '/firebase/database-api.js';
 import LoadingBar from '/core/loading-bar.js';
 import { html, unsafeHTML } from '/core/utils/html-utils.js';
+import { i18n } from '/i18n/i18n.js';
 
 /**
  * @typedef {Object} TileItemData
@@ -390,7 +391,7 @@ export default class PageMinesGame extends Component {
         <div class="game-menu">
           <div class="settings-container">
             <div class="flex-grow-1">
-              <label for="stake-input">Einsatz</label>
+              <label for="stake-input">${i18n.t('stake')}</label>
               <div class="input-wrapper">
                 <input
                   type="text"
@@ -427,11 +428,11 @@ export default class PageMinesGame extends Component {
           ` : html`
             ${this.numSelectedTiles === 0 ? html`
               <button class="btn primary button-select" disabled>
-                Tile auswählen
+                ${i18n.t('selectTile')}
               </button>
             ` : html`
               <button class="btn primary button-cashout">
-                Auszahlen (${this.currentMultiplier.toFixed(2)}x)
+                ${i18n.t('cashout')} (${this.currentMultiplier.toFixed(2)}x)
               </button>
             `}
           `}

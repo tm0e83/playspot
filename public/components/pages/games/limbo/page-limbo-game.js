@@ -211,7 +211,7 @@ export default class PageLimboGame extends Component {
         <div class="history"></div>
         <div class="game-menu">
           <div>
-            <label for="stake-input">Einsatz</label>
+            <label for="stake-input">${i18n.t('stake')}</label>
             <div class="input-wrapper">
               <input
                 type="text"
