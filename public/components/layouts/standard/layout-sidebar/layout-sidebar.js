@@ -213,12 +213,14 @@ export default class LayoutSidebar extends Component {
                 </a>
               </li>
             ` : ''}
+            <!--
             <li class="nav-item">
               <a class="nav-link ${routePath === 'settings' ? 'active' : ''}" href="/settings" data-link>
                 <i class="fa-solid fa-gear"></i>
                 <span>${i18n.t('settings')}</span>
               </a>
             </li>
+            -->
             <li class="nav-item">
               <a class="nav-link button-logout" href="/">
                 <i class="fa-solid fa-arrow-right-from-bracket"></i>

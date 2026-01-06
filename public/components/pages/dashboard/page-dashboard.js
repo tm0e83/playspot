@@ -12,9 +12,11 @@ export default class PageDashboard extends Component {
     return html`
       <!--<h1>${i18n.t('dashboard')}</h1>-->
       <div class="d-flex gap-4 teaser-container">
-        <div class="mb-4 dashboard-teaser">
-          <teaser-boilerplate></teaser-boilerplate>
-        </div>
+        <!--
+          <div class="mb-4 dashboard-teaser">
+            <teaser-boilerplate></teaser-boilerplate>
+          </div>
+        -->
         <div class="mb-4 dashboard-teaser">
           <teaser-limbo></teaser-limbo>
         </div>

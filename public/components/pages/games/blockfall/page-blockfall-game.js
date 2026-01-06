@@ -10,7 +10,8 @@ export default class PageBlockfallGame extends Component {
 
   get template() {
     return html`
-      <h1>Coming soon...</h1>
+      <h1>Blockfall</h1>
+      <p>Dieses Spiel ist derzeit in Entwicklung.</p>
     `;
   }
 }

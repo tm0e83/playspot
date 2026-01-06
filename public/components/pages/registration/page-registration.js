@@ -3,13 +3,13 @@ import router from '/core/router.js';
 import Component from '/core/component.js';
 import '/core/icons/icon-user-plus.js';
 import '/core/icons/icon-playspot.js';
-import { html } from '/core/utils/html-utils.js';
+import { html, unsafeHTML } from '/core/utils/html-utils.js';
 
 // @ts-ignore
 import { getAuth, createUserWithEmailAndPassword, sendEmailVerification, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/11.7.1/firebase-auth.js';
 // @ts-ignore
 import { get, getDatabase, ref, set } from 'https://www.gstatic.com/firebasejs/11.7.1/firebase-database.js';
-import LoadingBar from '/core/loading-bar';
+import LoadingBar from '/core/loading-bar.js';
 
 export default class PageRegistration extends Component {
   cssFilePath = 'components/pages/registration/page-registration.css';
@@ -82,9 +82,6 @@ export default class PageRegistration extends Component {
 
       await set(ref(db, 'usernames/' + this.#username), user.uid);
       await sendEmailVerification(user);
-      await auth.signOut();
-
-      router.navigate('/verify-email');
 
       set(ref(db, 'users/' + user.uid), {
         balance: 1000,
@@ -102,6 +99,8 @@ export default class PageRegistration extends Component {
         winningsHistory: []
       });
 
+      await auth.signOut();
+      router.navigate('/verify-email');
     } catch (/** @type {any} */ error) {
       this.#errorCode = error.code;
       this.render();
@@ -135,7 +134,7 @@ export default class PageRegistration extends Component {
         errorText = i18n.t('unknownError', { errorCode: this.#errorCode });
     }
 
-    return html`
+    return unsafeHTML`
       <div class="alert alert-danger d-flex align-items-center gap-4" role="alert">
         <i class="fa-solid fa-triangle-exclamation"></i>
         <div>${errorText}</div>

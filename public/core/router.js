@@ -69,6 +69,13 @@ class Router extends EventTarget {
       accessLevel: 'guest'
     },
     {
+      path: 'account',
+      layout: 'standard',
+      title: "user",
+      component: '/components/pages/account/page-user',
+      accessLevel: 'user'
+    },
+    {
       path: 'verify-email',
       layout: 'blank',
       title: "verifyEmail",

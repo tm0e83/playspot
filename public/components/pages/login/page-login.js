@@ -11,7 +11,7 @@ import { getAuth, signInWithEmailAndPassword, sendEmailVerification } from "http
 // @ts-ignore
 import { child, get, getDatabase, off, ref, set, update } from 'https://www.gstatic.com/firebasejs/11.7.1/firebase-database.js';
 import { setCookie } from '/core/functions.js';
-import { html } from '/core/utils/html-utils.js';
+import { html, unsafeHTML } from '/core/utils/html-utils.js';
 
 /**
  * @typedef {Object} AuthUser
@@ -158,7 +158,7 @@ export default class PageLogin extends Component {
         errorText = i18n.t('anErrorOccurred', { errorCode: this.errorCode });
     }
 
-    return html`
+    return unsafeHTML`
       <div class="alert alert-danger d-flex align-items-center gap-4" role="alert">
         <i class="fa-solid fa-triangle-exclamation"></i>
         <div>${errorText}</div>

@@ -4,7 +4,7 @@ import { roundTo2Decimals } from '/core/functions.js';
 import './tile-item.js';
 import DatabaseAPI from '/firebase/database-api.js';
 import LoadingBar from '/core/loading-bar.js';
-import { html } from '/core/utils/html-utils.js';
+import { html, unsafeHTML } from '/core/utils/html-utils.js';
 
 /**
  * @typedef {Object} TileItemData
@@ -420,16 +420,16 @@ export default class PageMinesGame extends Component {
             </div>
           </div>
 
-          ${!this.#gameStarted ? `
+          ${!this.#gameStarted ? html`
             <button class="btn primary button-play" ${this.isValidBetAmount ? '' : 'disabled'}>
               Spielen
             </button>
-          ` : `
-            ${this.numSelectedTiles === 0 ? `
+          ` : html`
+            ${this.numSelectedTiles === 0 ? html`
               <button class="btn primary button-select" disabled>
                 Tile auswählen
               </button>
-            ` : `
+            ` : html`
               <button class="btn primary button-cashout">
                 Auszahlen (${this.currentMultiplier.toFixed(2)}x)
               </button>
@@ -438,17 +438,17 @@ export default class PageMinesGame extends Component {
         </div>
         <div class="game-canvas">
           <div class="tiles">
-            ${this.#tileItemsData.map((itemData, index) => `
+            ${this.#tileItemsData.map((itemData, index) => html`
               <tile-item
                 selected="${itemData.selected}"
                 type="${itemData.type ? itemData.type : ''}"
                 ${itemData.current ? 'animate' : ''}
                 ${this.#gameStarted && !this.#gameEnded ? '' : 'disabled'}
               ></tile-item>
-            `).join('')}
+            `)}
           </div>
 
-          ${!this.#gameStarted && this.#gameEnded && this.#winAmount > 0 ? `
+          ${!this.#gameStarted && this.#gameEnded && this.#winAmount > 0 ? html`
             <div class="win-message">
                 <strong>${this.totalWinFactor.toFixed(2)}x</strong>
                 <span>+ ${this.#winAmount} <i class="fa-solid fa-gem"></i></span>

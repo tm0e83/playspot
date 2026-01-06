@@ -57,13 +57,13 @@ export default class PageLeaderboard extends Component {
             </h2>
           </div>
           <div class="card-body">
-            ${this.globalEntries?.map(entry => `
+            ${this.globalEntries?.map(entry => html`
               <div class="leaderboard-entry">
                 <div><i class="fa-solid fa-trophy"></i></div>
                 <div class="username">${entry.username}</div>
                 <div class="score">${entry.score}</div>
               </div>
-            `).join('')}
+            `)}
           </div>
         </div>
 
@@ -80,7 +80,7 @@ export default class PageLeaderboard extends Component {
                 <div class="username">${entry.username}</div>
                 <div class="score">${entry.score}</div>
               </div>
-            `).join('')}
+            `)}
           </div>
         </div>
 
@@ -97,7 +97,7 @@ export default class PageLeaderboard extends Component {
                 <div class="username">${entry.username}</div>
                 <div class="score">${entry.score}</div>
               </div>
-            `).join('')}
+            `)}
           </div>
         </div>
       </div>

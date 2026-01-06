@@ -15,7 +15,10 @@ page-leaderboard {
     display: flex;
     flex-direction: column;
     gap: 1px;
-    max-width: 400px;
+
+    @media (min-width: 980px) {
+      max-width: 400px;
+    }
   }
 
   .card-body {
