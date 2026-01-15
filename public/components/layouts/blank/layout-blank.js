@@ -2,6 +2,7 @@ import Component from '/core/component.js';
 import router from '/core/router.js';
 import { html } from '/core/utils/html-utils.js';
 import './layout-header/layout-blank-header.js';
+import '../standard/layout-footer/layout-footer.js';
 import '/core/background-animation.js';
 
 export default class LayoutBlank extends Component {
@@ -33,11 +34,12 @@ export default class LayoutBlank extends Component {
 
     try {
       const { default: Page } = await import(`${router.route?.config?.component}.js`);
-      this.appendChild((new Page()));
+      // this.appendChild((new Page()));
+      this.querySelector('layout-footer')?.insertAdjacentElement('beforebegin', (new Page()));
     } catch(error) {
       console.log(error);
       const { default: Page } = await import('/components/pages/404/page-404.js');
-      this.appendChild((new Page()));
+      this.querySelector('layout-footer')?.insertAdjacentElement('beforebegin', (new Page()));
     }
 
     this.#isLoading = false;
@@ -48,6 +50,7 @@ export default class LayoutBlank extends Component {
     return html`
       <background-animation></background-animation>
       <layout-blank-header></layout-blank-header>
+      <layout-footer></layout-footer>
     `;
   }
 }

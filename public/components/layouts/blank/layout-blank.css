@@ -2,4 +2,9 @@ layout-blank {
   display: flex;
   flex-direction: column;
   height: 100%;
+
+  layout-footer {
+    position: relative;
+    z-index: 1;
+  }
 }
